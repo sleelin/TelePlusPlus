@@ -495,7 +495,7 @@ public class ChatBlock {
                         // advance x to the next character
                         x = x + 1;
 
-                        lastColor = ChatColor.getByCode(Integer.parseInt(msg.charAt(x) + "", 16)) + "";
+                        lastColor = ChatColor.getByChar((char) Integer.parseInt(msg.charAt(x) + "", 16)) + "";
                     }
                 }
                 

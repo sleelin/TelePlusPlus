@@ -2,16 +2,12 @@ package net.sacredlabyrinth.Phaed.TelePlusPlus.managers;
 
 import net.sacredlabyrinth.Phaed.TelePlusPlus.TelePlusPlus;
 
-import com.nijikokun.bukkit.Permissions.Permissions;
-import com.nijiko.permissions.PermissionHandler;
-
-import org.bukkit.plugin.Plugin;
-
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 public class PermissionsManager {
-    public static PermissionHandler Permissions = null;
-    private TelePlusPlus plugin;
+    @SuppressWarnings("unused")
+	private TelePlusPlus plugin;
     
     public final String menu = "tpp.tp.menu";    
     public final String player = "tpp.tp.player";
@@ -44,49 +40,19 @@ public class PermissionsManager {
     
     public PermissionsManager(TelePlusPlus plugin) {
         this.plugin = plugin;
-
-        startPermissions();
     }
     
     public boolean hasPermission(Player player, String permission) {
         if (player == null) {
             return false;
-        }
-
-        if (hasPermissionPlugin()) {
-            return (Permissions != null && Permissions.has(player, permission));
         } else {
-            if (player.isOp()) {
-                return true;
-            } else {
-                if (permission.contains("admin")) {
-                    return false;
-                }
-
-                if (permission.contains("mod")) {
-                    return false;
-                }
-
-                return true;
-            }
-        }    
-    }
-    
-    private boolean hasPermissionPlugin() {
-        return Permissions != null;
-    }
-    
-    public void startPermissions() {
-        if (PermissionsManager.Permissions == null) {
-            Plugin test = plugin.getServer().getPluginManager().getPlugin("Permissions");
-
-            if (test != null) {
-                if (!plugin.getServer().getPluginManager().isPluginEnabled(test)) {
-                    plugin.getServer().getPluginManager().enablePlugin(test);
-                }
-
-                PermissionsManager.Permissions = ((Permissions) test).getHandler();
-            }
+        	if (player.hasPermission(permission)){
+        		return true;
+        	} else {
+        		player.sendMessage(ChatColor.RED + "You don't have permission to do that");
+        		return false;
+        	}
         }
     }
+    
 }

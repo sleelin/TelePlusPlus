@@ -14,20 +14,22 @@ import org.bukkit.block.Block;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerListener;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.entity.Entity;
 
-public class TPPlayerListener extends PlayerListener {
+public class TPPlayerListener implements Listener {
     private TelePlusPlus plugin;
     
     public TPPlayerListener(TelePlusPlus plugin) {
         this.plugin = plugin;
     }
     
-    @Override
+    @EventHandler(priority = EventPriority.NORMAL)
     public void onPlayerMove(PlayerMoveEvent event) {
         Player player = event.getPlayer();
         Location from = event.getFrom();
@@ -49,7 +51,7 @@ public class TPPlayerListener extends PlayerListener {
         }
     }
     
-    @Override
+    @EventHandler(priority = EventPriority.NORMAL)
     public void onPlayerInteract(PlayerInteractEvent event) {
         Player player = event.getPlayer();
 

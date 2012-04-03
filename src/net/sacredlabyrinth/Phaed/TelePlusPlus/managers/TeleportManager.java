@@ -1,6 +1,5 @@
 package net.sacredlabyrinth.Phaed.TelePlusPlus.managers;
 
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 import org.bukkit.Location;

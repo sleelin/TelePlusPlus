@@ -1,16 +1,12 @@
 package net.sacredlabyrinth.Phaed.TelePlusPlus.managers;
 
-import java.lang.reflect.Field;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import net.sacredlabyrinth.Phaed.TelePlusPlus.TelePlusPlus;
 
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import org.bukkit.util.config.Configuration;
-import org.bukkit.util.config.ConfigurationNode;
+import org.bukkit.configuration.Configuration;
 
 public class SettingsManager {
     protected static Configuration config;
@@ -106,7 +102,7 @@ public class SettingsManager {
     
     public SettingsManager(TelePlusPlus plugin) {
         this.plugin = plugin;
-        this.config = plugin.config;
+        SettingsManager.config = plugin.getConfig();
         
         loadConfiguration();
     }
@@ -114,8 +110,9 @@ public class SettingsManager {
     /**
      * Load the configuration
      */
-    public void loadConfiguration() {
-        config.load();
+    @SuppressWarnings("unchecked")
+	public void loadConfiguration() {
+    	plugin.reloadConfig();
 
         List<Integer> defaultThroughBlocks = new ArrayList<Integer>(Arrays.asList(new Integer[]{
             0, 6, 8, 9, 10, 11, 37, 38, 39, 40, 50, 51, 55, 59, 69, 76
@@ -203,7 +200,7 @@ public class SettingsManager {
         fallImmunity = config.getBoolean("glassed.fall-immunity", false);
 
         fallImmunitySeconds = config.getInt("glassed.fall-immunity-seconds", 5);
-        throughBlocks = config.getIntList("settings.through-blocks", defaultThroughBlocks);
+        throughBlocks = (List<Integer>) config.getList("settings.through-blocks", defaultThroughBlocks);
         purgeRequestMinutes = config.getInt("settings.purge-requests-minutes", 5);
 
         moverItem = config.getInt("settings.mover-item", 346);
@@ -211,16 +208,16 @@ public class SettingsManager {
     }
     
     public Object getProperty(String path) {
-        Object node = this.config.getProperty(path);
+        Object node = ((SettingsManager) SettingsManager.config).getProperty(path);
         
         return node;
     }
     
     public void setProperty(String path, Object value) {
-        this.config.setProperty(path, value);
+        ((SettingsManager) SettingsManager.config).setProperty(path, value);
         
         // save Configuration
-        config.save();
+        plugin.saveConfig();
         
         // reload Settings
         loadConfiguration();

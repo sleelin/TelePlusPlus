@@ -8,21 +8,23 @@ import org.bukkit.entity.Monster;
 import org.bukkit.entity.Animals;
 import org.bukkit.entity.Vehicle;
 import org.bukkit.entity.Entity;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
-import org.bukkit.event.entity.EntityListener;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.ChatColor;
 
-public class TPEntityListener extends EntityListener {
+public class TPEntityListener implements Listener {
     private final TelePlusPlus plugin;
     
     public TPEntityListener(TelePlusPlus plugin) {
         this.plugin = plugin;
     }
     
-    @Override
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onEntityDamage(EntityDamageEvent event) {
         if (event.getCause().equals(DamageCause.FALL)) {
             if (event.getEntity() instanceof Player) {

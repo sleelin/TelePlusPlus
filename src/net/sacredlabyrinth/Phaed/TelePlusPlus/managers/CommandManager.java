@@ -6,7 +6,6 @@ import net.sacredlabyrinth.Phaed.TelePlusPlus.TargetBlock;
 import net.sacredlabyrinth.Phaed.TelePlusPlus.TeleHistory;
 import net.sacredlabyrinth.Phaed.TelePlusPlus.TelePlusPlus;
 import net.sacredlabyrinth.Phaed.TelePlusPlus.Request;
-import me.taylorkelly.help.Help;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,13 +17,10 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Entity;
-import org.bukkit.plugin.Plugin;
-import org.bukkit.util.config.ConfigurationNode;
 
 public class CommandManager {
     private TelePlusPlus plugin;
     
-    protected Help helpPlugin;
     protected static HashMap<String, Integer> playerSettings;
     
     
